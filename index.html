@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout de Compra</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #95fb93;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .checkout-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 420px;
+            padding: 30px;
+        }
+        h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            color: #68564a;
+            margin-bottom: 8px;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 16px;
+            color: #515533;
+            outline: none;
+        }
+        input::placeholder {
+            color: #b8b694;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #68644a;
+            margin: 20px 0 15px 0;
+        }
+        .grid-pagamentos {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .btn-pagamento {
+            border: none;
+            border-radius: 6px;
+            padding: 14px 8px;
+            font-size: 15px;
+            font-weight: bold;
+            color: #ffffff;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .btn-pagamento:hover {
+            opacity: 0.9;
+        }
+        .btn-pix { background-color: #74e376; }
+        .btn-dinheiro { background-color: #2e9d42; }
+        .btn-cartao { background-color: #004f15; }
+        .btn-parcelado { background-color: #6b8b64; }
+        
+        .resultado-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #ff0000;
+            padding: 15px;
+            border-radius: 0 6px 6px 0;
+        }
+        .resultado-box p {
+            font-size: 15px;
+            color: #bf00ff;
+            margin-bottom: 6px;
+        }
+        .resultado-box p strong {
+            font-size: 18px;
+            color: #0f172a;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="checkout-container">
+        <h2>Checkout de Compra</h2>
+        
+        <div class="form-group">
+            <label id="lbl-produto">Preço do Produto (R\$):</label>
+            <input type="number" id="preco-produto" placeholder="Ex: 100.00" step="0.01" min="0">
+        </div>
+
+        <div class="form-group">
+            <label id="lbl-frete">Valor do Frete (R\$):</label>
+            <input type="number" id="valor-frete" placeholder="Ex: 15.00" step="0.01" min="0">
+        </div>
+
+        <div class="section-title">Forma de Pagamento:</div>
+
+        <div class="grid-pagamentos">
+            <button class="btn-pagamento btn-pix" onclick="calcularTotal('PIX (-10%)', 0.90)">PIX (-10%)</button>
+            <button class="btn-pagamento btn-dinheiro" onclick="calcularTotal('Dinheiro (-5%)', 0.95)">Dinheiro (-5%)</button>
+            <button class="btn-pagamento btn-cartao" onclick="calcularTotal('Cartão à vista', 1.00)">Cartão à vista</button>
+            <button class="btn-pagamento btn-parcelado" onclick="calcularTotal('Parcelado (+5%)', 1.05)">Parcelado (+5%)</button>
+        </div>
+
+        <div class="resultado-box">
+            <p id="txt-forma">Forma: -</p>
+            <p><strong>Total: R\$ <span id="txt-total">0.00</span></strong></p>
+        </div>
+    </div>
+
+    <script>
+        function calcularTotal(nomeForma, modificador) {
+            const precoProduto = parseFloat(document.getElementById('preco-produto').value) || 0;
+            const valorFrete = parseFloat(document.getElementById('valor-frete').value) || 0;
+         
+            const valorProdutoModificado = precoProduto * modificador;
+            const totalGeral = valorProdutoModificado + valorFrete;
+
+            document.getElementById('txt-forma').innerText = `Forma: ${nomeForma}`;
+            document.getElementById('txt-total').innerText = totalGeral.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
