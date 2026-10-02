@@ -1,0 +1,17 @@
+body{
+    background-color: aquamarine;
+  }
+  #card{
+    width : 70%;
+    backgroud-color: antiquewhite;
+    margin: 0 auto;
+  }
+  #inputs{
+    display: flex;
+    flex-direction; column;
+  }
+  #botoes{
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+  }
